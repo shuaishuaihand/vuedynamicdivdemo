@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>vue中动态添加div</title>
+
+    <meta name="keywords" content="keyword1,keyword2,keyword3"></meta>
+    <meta name="description" content="this is my page"></meta>
+    <meta name="content-type" content="text/html; charset=UTF-8"></meta>
+
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+    <link rel="stylesheet" href="/css/vue-treeselect.min.css">
+    <link href="/css/vendors.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style.bundle.css" rel="stylesheet" type="text/css"/>
+    <!-- 引入 Vue -->
+    <script src="/js/vue2.5.17.js"></script>
+    <!-- 引入 VueTree -->
+    <script src="/js/vue-treeselect.min.js"></script>
+    <!-- 引入 Vueresource -->
+    <script src="/js/vue-resource.js" type="text/javascript"></script>
+</head>
+
+<body>   <!--:value-consists-of="valueConsistsOf"-->
+<div id="app" align="center">
+    <div><label style="font-size: 30px;color: black">vue中动态添加div</label></div>
+
+    <div style="width: 800px">
+    <div v-for="(v,i) in list">
+        <div data-repeater-list="">
+            <div data-repeater-item>
+                <div class="form-group  m-form__group row" style="padding-top: 15px;padding-bottom: 15px;">
+                    <label class="col-form-label col-lg-2 col-sm-12">联系人类型 <span
+                            style="color: #F00">*</span>
+                    </label>
+                    <div class="col-lg-3">
+                        <select class="form-control m-input&#45;&#45;fixed"
+                                v-model="list[i].contactType">
+                            <option v-for="option in contacttype_arr"
+                                    v-bind:value="option.id">{{ option.typename}}
+                            </option>
+                        </select>
+                    </div >
+                    <label class="col-form-label col-lg-2 col-sm-12"> 数量<span
+                            style="color: #F00">*</span></label>
+                    <div class="col-lg-3">
+                        <input type="text" v-model="list[i].number"
+                               class="form-control m-input&#45;&#45;fixed"
+                               placeholder=""/>
+                    </div>
+                    <div class="col-lg-2">
+                        <div data-repeater-delete="" v-on:click="deleteNode(i)" style="margin-left: 35px;"
+                             class="btn-sm btn btn-danger m-btn m-btn&#45;&#45;icon m-btn&#45;&#45;pill">
+                            <span>
+                              <!--  <i class="la la-trash-o"></i> -->
+                                <span> 删除 </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m-form__group form-group row">
+        <label class="col-lg-4 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <div class="col-lg-4" v-on:click="addNode()">
+            <div data-repeater-create="" style="text-align: center"
+                 class="btn btn btn-sm btn-brand m-btn m-btn--icon m-btn--pill m-btn--wide">
+                <span>
+                   <!-- <i class="la la-plus"></i> -->
+                    <span> 添加 </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+</div>
+<script>
+    // register the component
+    Vue.component('treeselect', VueTreeselect.Treeselect)
+    new Vue({
+        el: '#app',
+        data: {
+            contacttype_arr:[
+                {id: 1, typename: '家人'},
+                {id: 2, typename: '朋友'},
+                {id: 3, typename: '同事'}
+            ],
+            //联系人类型
+            list:[
+                {contactType: '', number: ''}
+            ],
+        },
+        //初始化方法
+        mounted:function () {
+
+        },
+        methods: {
+
+            //添加标本div
+            addNode:function() {
+                this.list.push({contactType: '', number: ''});
+            },
+            //删除样本div
+            deleteNode:function(i) {
+                this.list.splice(i,1);
+            }
+        }
+    })
+</script>
+<!--<script src="/js/org.js" type="text/javascript"></script>-->
+</body>
+</html>

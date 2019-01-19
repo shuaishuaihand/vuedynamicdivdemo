@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hand.hand.mapper.UserMapper">
+ <select id="findUserByOrgId" resultType="java.util.HashMap">
+     select id ,user_name as label from user
+     <if test="orgId!=null">
+         WHERE ORG_ID =#{orgId} ORDER BY id
+    </if>
+ </select>
+</mapper>

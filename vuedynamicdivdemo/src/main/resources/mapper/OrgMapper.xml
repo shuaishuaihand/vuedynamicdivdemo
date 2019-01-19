@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hand.hand.mapper.OrgMapper">
+ <select id="findListByPid" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+     select id,name as label from organization
+     <if test="pid!=0">
+         WHERE PARENTID =#{pid}
+    </if>
+     <if test="pid==0">
+       WHERE  (PARENTID &lt; 1 or PARENTID is null)
+     </if>
+ </select>
+
+
+</mapper>
